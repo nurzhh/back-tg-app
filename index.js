@@ -33,7 +33,7 @@ bot.on("web_app_data", async (msg) => {
     try {
         const data = JSON.parse(msg.web_app_data.data);
 
-        const response = await axios.post("http://localhost:8000/api/analyze", {
+        const response = await axios.post("back-tg-app-production.up.railway.app/api/analyze", {
             answers: data.answers,
         });
 
