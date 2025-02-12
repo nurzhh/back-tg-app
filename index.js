@@ -10,6 +10,13 @@ const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {polling: true});
 app.use(express.json());
 app.use(cors());
 
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+
 const WEB_APP_URL = process.env.WEB_APP_URL;
 
 bot.onText(/\/start/, async (msg) => {
@@ -33,7 +40,7 @@ bot.on("web_app_data", async (msg) => {
     try {
         const data = JSON.parse(msg.web_app_data.data);
 
-        const response = await axios.post("back-tg-app-production.up.railway.app/api/analyze", {
+        const response = await axios.post("https://back-tg-app-production.up.railway.app/api/analyze", {
             answers: data.answers,
         });
 
